@@ -1,0 +1,34 @@
+<project basedir="." default="all" name="crypto-search" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:mvn="antlib:org.apache.maven.artifact.ant">
+
+	<!-- set up ivy properties -->
+	<property name="ivy.jar.dir" value="${basedir}/lib" />
+	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+	<property name="build.dir" value="${basedir}/build" />
+	<property name="src.dir" value="src" />
+
+	<target name="ivy-download" unless="skip.download">
+		<mkdir dir="${ivy.jar.dir}" />
+		<echo message="installing ivy..." />
+		<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/2.3.0/ivy-2.3.0.jar" dest="${ivy.jar.file}" usetimestamp="true" />
+	</target>
+
+	<!-- The default target, jar and war files -->
+	<target name="all" depends="resolve" />
+	<target name="ivy-install" depends="ivy-download" description="--> install ivy">
+		<path id="ivy.lib.path">
+			<fileset dir="${ivy.jar.dir}" includes="*.jar" />
+		</path>
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
+	</target>
+	<target name="resolve" depends="ivy-install" description="--> retrieve dependencies with ivy" unless="ivy.has.resolved">
+		<property name="ivy.has.resolved" value="true" />
+		<ivy:retrieve />
+	</target>
+
+	<target name="clean">
+		<delete>
+			<fileset dir="${basedir}/lib" includes="**/*.jar" defaultexcludes="no" />
+		</delete>
+	</target>
+
+</project>
