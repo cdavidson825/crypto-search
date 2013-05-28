@@ -4,39 +4,43 @@ crypto-search
 Introduction
 -----------
 
-Stupid simple app to pull down the released NSA Cryptologs, extract/index/search the text.  This app just piggy backs off the Apache Lucene 4 Index and Search classes and has a few helper scripts to get/extract the data.
+Stupid Simple App to pull NSA cryptologs, extract text, and make them searchable using the Lucene 4 Demo Index/Search classes.   This app just piggy backs off the Apache Lucene 4 Demo Index and Search classes and has a few helper scripts to get/extract/index/search the data.
 
 This app uses Ant + Ivy to pull down the required .jars used by the various scripts.
 
 ```
 git clone git://github.com/cdavidson825/crypto-search.git
-cd cd crypto-search
+cd crypto-search
 ant
 ```
 
-Scripts (under scripts/ dir)
+Helper Scripts 
 --------------
 
-Getting the PDFs
+Getting the NSA Cryptolog PDFs from the nsa.gov website
 
 ```
+cd scripts
 ./fetch_pdfs.sh
 ```
 
-Extract Text from PDF
+Extract Text from PDF using PDFBox
 
 ```
+cd scripts
 ./extract_text.sh
 ```
 
 Create Lucene Index from Extracted Text
 
 ```
+cd scripts
 ./create_index.sh
 ```
 
 Search for Text
 
 ```
+cd scripts
 ./search.sh
 ```
