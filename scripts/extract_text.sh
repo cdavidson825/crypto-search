@@ -2,6 +2,7 @@
 
 . env.sh
 
+mkdir -p ${EXTRACTED_TEXT_DIR}
 for f in ${PDF_DIR}/*.pdf; do
 
   echo "Extracting text from $f"
